@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.perk.guidetest0702.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/lin_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/lin_titlebar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/text_line1"
+            android:background="#f3f3f3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名称："
+            android:textSize="17sp"
+            android:layout_marginLeft="17dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image_photo"
+            android:layout_toEndOf="@+id/image_photo" />
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txt_name"
+            android:layout_toEndOf="@+id/txt_name"
+            android:hint="用户名"
+            android:singleLine="true"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/lin_name"
+        android:layout_centerHorizontal="true">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/textView5"
+            android:background="#f3f3f3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/text_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密        码："
+            android:textSize="17sp"
+            android:layout_marginLeft="17dp"
+            android:layout_centerVertical="true" />
+
+        <EditText
+            android:id="@+id/edit_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:hint="密    码"
+            android:singleLine="true"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/but_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        android:layout_below="@+id/relativeLayout5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="55dp"
+        android:textSize="19sp"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记住密码"
+        android:id="@+id/cb_record_key"
+        android:layout_below="@+id/relativeLayout5"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
