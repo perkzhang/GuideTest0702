@@ -12,7 +12,7 @@ public class LocalDatabaseHelper extends SQLiteOpenHelper {
 
 
     //创表语句
-    public static final String CREATE_INFO = "create table info ("
+    public static final String CREATE_INFO = "create table Info ("
             + "_id integer primary key autoincrement, "
             + "username text, "
             + "usernumber text, "

@@ -230,7 +230,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                     mNumber.setText("");
                     mAddress.setText("");
                     mLockNumber.setText("");
-                    mTakePhoto.setImageResource(R.drawable.ic_action_camera_normal);
+                    mTakePhoto.setImageURI(Uri.parse("res://com.example.perk.guidetest0702/" + R.drawable.ic_action_camera_normal));
                 }
                 Toast.makeText(ActivitySon.this,"记录成功",Toast.LENGTH_SHORT).show();
                 break;
@@ -258,11 +258,12 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.tv_detail:
-                try {
+                /*try {
                     querry();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
+                startActivity(new Intent(ActivitySon.this,DisplayActivity.class));
                 break;
         }
     }
@@ -272,7 +273,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
-            mTakePhoto.setImageBitmap(bitmap);
+            mTakePhoto.setImageURI(Uri.parse(mCurrentPhotoPath));
         }else if(requestCode == REQUEST_WRITE_NFC && resultCode == RESULT_OK){
             String id = data.getStringExtra("id");
             Log.d("zgl1","id = " + id);
@@ -297,7 +298,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         values.put("photopath",mCurrentPhotoPath);
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.insert("info",null,values);
+        db.insert("Info",null,values);
         values.clear();
 
 
@@ -314,8 +315,8 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
     //查询数据
     private void querry() throws InterruptedException {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query("info",null,null,null,null,null,null);
-        if(cursor.moveToLast()){
+        Cursor cursor = db.query("Info",null,null,null,null,null,null);
+
             /*do {
                 String username = cursor.getString(cursor.getColumnIndex("username"));
                 String usernumber = cursor.getString(cursor.getColumnIndex("usernumber"));
@@ -326,7 +327,6 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 String latitude = cursor.getString(cursor.getColumnIndex("latitude"));
 
                 String photopath = cursor.getString(cursor.getColumnIndex("photopath"));
-
 
                 mDisplay.append(photopath
                         + "\n" +username
@@ -361,13 +361,14 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
             queryIntnet.putExtra("locknumber",locknumber);
             queryIntnet.putExtra("photopath",photopath);
 
+
             //传递路径
             queryIntnet.putExtra("longitude",longitude);
             queryIntnet.putExtra("latitude",latitude);
 
             startActivity(queryIntnet);
 
-        }
+
     }
     //拍照
     private void takePhoto() throws IOException {
@@ -405,6 +406,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 storageDir   /*directory 目录*/
         );
         mCurrentPhotoPath = image.getAbsolutePath();
+
         return image;
     }
 }

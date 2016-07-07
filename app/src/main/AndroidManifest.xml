@@ -54,9 +54,10 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
-        <activity android:name=".DisplayActivity"></activity>
+        <activity android:name=".DisplayActivity" />
+        <activity android:name=".mapview.MapViewActivity"></activity>
     </application>
 
 </manifest>
