@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--android:drawable 放一个drawable资源-->
+    <!--android:state_pressed 是否按下，如一个按钮触摸或者点击。-->
+    <!--android:state_focused 是否取得焦点，比如用户选择了一个文本框。-->
+    <!--android:state_window_focused 应用程序是否在前台，当有通知栏被拉下来或者一个对话框弹出的时候应用程序就不在前台了-->
+    <!--android:state_enabled 能够接受触摸或者点击事件-->
+
+
+
+    <!--默认背景图-->
+    <item android:drawable="@drawable/ic_action_camera_normal" android:state_window_focused="false" ></item>
+    <!--触摸模式下单击时背景图片-->
+    <item android:drawable="@drawable/ic_action_camera_pressed" android:state_focused="true" android:state_pressed="true"></item>
+
+
+
+
+
+</selector>
+
+

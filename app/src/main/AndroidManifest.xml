@@ -46,10 +46,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivitySon" />
+        <activity
+            android:name=".ActivitySon"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityNFC"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" />
 
         <service
             android:name="com.baidu.location.f"

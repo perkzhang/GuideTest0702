@@ -35,6 +35,7 @@ public class MapViewActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_map_view);
 
+        //如果经纬度为空，不能给mark赋值否则会报runtimeException
         Double longitude = Double.parseDouble(getIntent().getStringExtra("longitude"));
         Double latitude = Double.parseDouble(getIntent().getStringExtra("latitude"));
 

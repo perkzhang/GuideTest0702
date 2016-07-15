@@ -29,11 +29,13 @@ public class ActivityNFC extends AppCompatActivity {
     private PendingIntent mPendingIntent;
     private IntentFilter[] mFilters;
     private String[][] mTechLists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_nfc);
 
+        //1、
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -45,6 +47,7 @@ public class ActivityNFC extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //2、
         if (mNfcAdapter != null) {
             if (mNfcAdapter.isEnabled()) {
                 mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mFilters, mTechLists);
@@ -56,38 +59,49 @@ public class ActivityNFC extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //3、
         if (mNfcAdapter != null && mNfcAdapter.isEnabled()) {
             mNfcAdapter.disableForegroundDispatch(this);
         }
     }
 
+    //当窗口的创建模式是singleTop或singleTask时调用，用于取代onCreate方法
+    //当NFC标签靠近手机，建立连接后调用
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
         mUserName = getIntent().getStringExtra("name");
 
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            byte[] bytes = tag.getId();
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(String.format("%02X",bytes[i]>0?bytes[i]:bytes[i]+256));
-                /*
-                %02X：一种输出格式：X:表示16进制、02：表示不足两位前面补0输出、%：表示打印
-                * */
-            }
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-            Log.d("TAG",sb.toString());
-            //创建NdefMessage对象和ndefRecord对象
-            NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{createTextRecord(mUserName)});
-            if(writeTag(ndefMessage,tag)){
-                setResult(RESULT_OK,new Intent().putExtra("id",sb.toString()));
-                finish();
-            }else {
-                Toast.makeText(ActivityNFC.this,"写入失败，重新写入",Toast.LENGTH_SHORT).show();
-            }
+        //tag是一个byte数组
+        byte[] bytes = tag.getId();
+        StringBuffer writeinfo = new StringBuffer();//写入的信息
+        for (int i = 0; i < bytes.length; i++) {//将写入的byte数组转化成16进制
+            writeinfo.append(String.format("%02X", bytes[i] > 0 ? bytes[i] : bytes[i] + 256));
+                /*
+                %02X：一种输出格式：X:表示16进制、02：表示不足两位前面补0输出、%：表示打印信息
+                * */
+        }
+        Log.d("TAG", writeinfo.toString());
+
+        //创建NdefMessage对象和ndefRecord对象
+        NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{createTextRecord(mUserName)});
+
+        if (writeTag(ndefMessage, tag)) {
+            //写入成功后
+            setResult(RESULT_OK, new Intent().putExtra("id", writeinfo.toString()));
+            finish();
+        } else {
+            Toast.makeText(ActivityNFC.this, "写入失败，重新写入", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
+
+    //将NdefMessage对象写入标签，成功写入返回ture，否则返回false
     boolean writeTag(NdefMessage message, Tag tag) {
         int size = message.toByteArray().length;
 
@@ -115,7 +129,7 @@ public class ActivityNFC extends AppCompatActivity {
                 Toast.makeText(this, "已成功写入数据！", Toast.LENGTH_LONG).show();
                 return true;
 
-            } else {
+            } else {//ndef为空
                 //获取可以格式化和向标签写入数据NdefFormatable对象
                 NdefFormatable format = NdefFormatable.get(tag);
                 //向非NDEF格式或未格式化的标签写入NDEF格式数据
@@ -143,9 +157,9 @@ public class ActivityNFC extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             return false;
         }
-
     }
 
+    //创建一个封装要写入的文本的NdefRecord对象
     public NdefRecord createTextRecord(String text) {
         //生成语言编码的字节数组，中文编码
         byte[] langBytes = Locale.CHINA.getLanguage().getBytes(

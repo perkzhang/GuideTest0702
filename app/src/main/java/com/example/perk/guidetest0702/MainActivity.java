@@ -116,7 +116,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onParse(String s, Response response) {
+                /**
+                 * s = {"bOK":true,"sMsg":"","command":null,"m_ReturnOBJ":{"message":{"userid":"1060","orgna_id":"359","jsid":"017101010","companyid":"152"},"m_UserInfo":{"LGKey":"a5353cee01b54650884d8c09371f6525","realname":"张国梁","canuse":"Y","powername":"电子锁企业管理员","username":"dzszgl","company":"上海电子锁管理公司","overtime":"2099/1/1 8:00:00","addusername":"lyq","orgna_name":"总部"},"bOK":true}}
+                 * response = = Response{protocol=http/1.1, code=200, message=OK, url=http://www.yunrfid.com/CoreSYS.SYS/LGKeyLogin.index.ajax} 07-14 05:15:23.273 3440-3440/com.example.perk.guidetest07
+                 */
+
                 Log.d("zgl","s = " + s);
+                Log.d("zgl","response.toString(); = " + response.toString());
+
 
                 JSONModel.ReturnObject returnObject = gson.fromJson(s,JSONModel.ReturnObject.class);
                 Log.d("zgl1","returnObject = " + returnObject.getsMsg());
