@@ -7,15 +7,10 @@
     <!--android:state_window_focused 应用程序是否在前台，当有通知栏被拉下来或者一个对话框弹出的时候应用程序就不在前台了-->
     <!--android:state_enabled 能够接受触摸或者点击事件-->
 
-
-
     <!--默认背景图-->
     <item android:drawable="@drawable/ic_action_camera_normal" android:state_window_focused="false" ></item>
     <!--触摸模式下单击时背景图片-->
     <item android:drawable="@drawable/ic_action_camera_pressed" android:state_focused="true" android:state_pressed="true"></item>
-
-
-
 
 
 </selector>

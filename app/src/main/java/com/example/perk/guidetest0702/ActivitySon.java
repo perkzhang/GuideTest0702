@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ActivitySon extends AppCompatActivity implements View.OnClickListener{
+public class ActivitySon extends AppCompatActivity implements View.OnClickListener {
 
 
     private static final int REQUEST_WRITE_NFC = 1;
@@ -74,12 +74,12 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
             mLongitude = String.valueOf(location.getLongitude());//经度
             mLatitude = String.valueOf(location.getLatitude());//纬度
 
-            Log.d("zgl","mLatitude = " + mLatitude);
-            Log.d("zgl","mLontitude = " + mLongitude);
+            Log.d("zgl", "mLatitude = " + mLatitude);
+            Log.d("zgl", "mLontitude = " + mLongitude);
             location.getAddrStr();//地址信息
 
             mAddress.setText(location.getAddrStr());
-            if(mAddress.getText()!=null){
+            if (mAddress.getText() != null) {
                 mLocationClient.stop();
 
             }
@@ -96,7 +96,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
             sb.append(location.getLongitude());//
             sb.append("\nradius : ");
             sb.append(location.getRadius());
-            if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
                 sb.append("\nspeed : ");
                 sb.append(location.getSpeed());// 单位：公里每小时
                 sb.append("\nsatellite : ");
@@ -109,7 +109,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 sb.append(location.getAddrStr());
                 sb.append("\ndescribe : ");
                 sb.append("gps定位成功");
-            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());//
 
@@ -161,16 +161,16 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         initViews();
         initLocation();
 
-        dbHelper = new LocalDatabaseHelper(ActivitySon.this,"LockInfo.db",null,2);
+        dbHelper = new LocalDatabaseHelper(ActivitySon.this, "LockInfo.db", null, 2);
     }
 
     //2、配置定位SDK参数
-    private void initLocation(){
+    private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=1000;
+        int span = 1000;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -183,7 +183,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         mLocationClient.setLocOption(option);
     }
 
-    private void initViews(){
+    private void initViews() {
         mName = (EditText) findViewById(R.id.edit_name);
         mNumber = (EditText) findViewById(R.id.edit_userno);
         mAddress = (EditText) findViewById(R.id.edit_add);
@@ -210,29 +210,29 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.but_record:
                 String username = mName.getText().toString().trim();
                 String usernumber = mNumber.getText().toString().trim();
                 String address = mAddress.getText().toString().trim();
                 String locknumber = mLockNumber.getText().toString().trim();
                 AssetManager takephoto = mTakePhoto.getContext().getAssets();
-                Log.d("zgl","takephoto = " + takephoto);
-                if(username.isEmpty() || usernumber.isEmpty() || locknumber.isEmpty() || address.isEmpty()){
-                    Toast.makeText(ActivitySon.this,"请输入完整的信息",Toast.LENGTH_SHORT).show();
+                Log.d("zgl", "takephoto = " + takephoto);
+                if (username.isEmpty() || usernumber.isEmpty() || locknumber.isEmpty() || address.isEmpty()) {
+                    Toast.makeText(ActivitySon.this, "请输入完整的信息", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else {
 
-                    Toast.makeText(ActivitySon.this,"ok！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivitySon.this, "ok！", Toast.LENGTH_SHORT).show();
                     dbHelper.getWritableDatabase();//此方法一调用则回调SQLiteOpenHelper中onCreat()方法；
-                    addData(username,usernumber,address,locknumber);
+                    addData(username, usernumber, address, locknumber);
                     mName.setText("");
                     mNumber.setText("");
                     mAddress.setText("");
                     mLockNumber.setText("");
                     mTakePhoto.setImageURI(Uri.parse("res://com.example.perk.guidetest0702/" + R.drawable.ic_action_camera_normal));
                 }
-                Toast.makeText(ActivitySon.this,"记录成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivitySon.this, "记录成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.but_located:
                 mLocationClient.start();
@@ -245,13 +245,13 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.image_read_nfc:
-                if(mName.getText().toString().equals("")){
-                    Toast.makeText(ActivitySon.this,"用户名不能为空！",Toast.LENGTH_SHORT).show();
+                if (mName.getText().toString().equals("")) {
+                    Toast.makeText(ActivitySon.this, "用户名不能为空！", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
-                    Intent intent = new Intent(ActivitySon.this,ActivityNFC.class);
-                    intent.putExtra("name",mName.getText().toString());
-                    startActivityForResult(intent,REQUEST_WRITE_NFC);
+                } else {
+                    Intent intent = new Intent(ActivitySon.this, ActivityNFC.class);
+                    intent.putExtra("name", mName.getText().toString());
+                    startActivityForResult(intent, REQUEST_WRITE_NFC);
                 }
                 break;
             case R.id.image_back:
@@ -263,7 +263,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }*/
-                startActivity(new Intent(ActivitySon.this,DisplayActivity.class));
+                startActivity(new Intent(ActivitySon.this, DisplayActivity.class));
                 break;
         }
     }
@@ -271,51 +271,53 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
             mTakePhoto.setImageURI(Uri.parse(mCurrentPhotoPath));
-        }else if(requestCode == REQUEST_WRITE_NFC && resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_WRITE_NFC && resultCode == RESULT_OK) {
             String id = data.getStringExtra("id");
-            Log.d("zgl1","id = " + id);
+            Log.d("zgl1", "id = " + id);
             mDisplay.setText(id);
             mDisplay.setVisibility(View.VISIBLE);
-        //  mNfcId.setVisibility(View.VISIBLE);
+            //  mNfcId.setVisibility(View.VISIBLE);
         }
 
     }
 
     //添加数据
-    private void addData(String username ,String usernumber ,String address,String locknumber ){
+    private void addData(String username, String usernumber, String address, String locknumber) {
         ContentValues values = new ContentValues();
-        values.put("username",username);
-        values.put("usernumber",usernumber);
-        values.put("address",address);
-        values.put("locknumber",locknumber);
+        values.put("username", username);
+        values.put("usernumber", usernumber);
+        values.put("address", address);
+        values.put("locknumber", locknumber);
         //独立添加经纬度
-        values.put("longitude",mLongitude);
-        values.put("latitude",mLatitude);
+        values.put("longitude", mLongitude);
+        values.put("latitude", mLatitude);
         //独立添加图片路径
-        values.put("photopath",mCurrentPhotoPath);
+        values.put("photopath", mCurrentPhotoPath);
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.insert("Info",null,values);
+        db.insert("Info", null, values);
         values.clear();
 
 
     }
+
     //更新新数据
-    private void updata(String username ,String usernumber ,String locknumber){
+    private void updata(String username, String usernumber, String locknumber) {
         ContentValues values = new ContentValues();
-        values.put("username",username);
-        values.put("usernumber",usernumber);
-        values.put("locknumber",locknumber);
+        values.put("username", username);
+        values.put("usernumber", usernumber);
+        values.put("locknumber", locknumber);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
     }
+
     //查询数据
     private void querry() throws InterruptedException {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query("Info",null,null,null,null,null,null);
+        Cursor cursor = db.query("Info", null, null, null, null, null, null);
 
             /*do {
                 String username = cursor.getString(cursor.getColumnIndex("username"));
@@ -342,40 +344,41 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
             }while (cursor.moveToNext());*/
 
-            String username = cursor.getString(cursor.getColumnIndex("username"));
-            String usernumber = cursor.getString(cursor.getColumnIndex("usernumber"));
-            String address = cursor.getString(cursor.getColumnIndex("address"));
-            String locknumber = cursor.getString(cursor.getColumnIndex("locknumber"));
-            String photopath = cursor.getString(cursor.getColumnIndex("photopath"));
+        String username = cursor.getString(cursor.getColumnIndex("username"));
+        String usernumber = cursor.getString(cursor.getColumnIndex("usernumber"));
+        String address = cursor.getString(cursor.getColumnIndex("address"));
+        String locknumber = cursor.getString(cursor.getColumnIndex("locknumber"));
+        String photopath = cursor.getString(cursor.getColumnIndex("photopath"));
 
 
-            String longitude = cursor.getString(cursor.getColumnIndex("longitude"));//经度
-            String latitude = cursor.getString(cursor.getColumnIndex("latitude"));//纬度
+        String longitude = cursor.getString(cursor.getColumnIndex("longitude"));//经度
+        String latitude = cursor.getString(cursor.getColumnIndex("latitude"));//纬度
 
 
-            Intent queryIntnet = new Intent(ActivitySon.this,DisplayActivity.class);
+        Intent queryIntnet = new Intent(ActivitySon.this, DisplayActivity.class);
 
-            queryIntnet.putExtra("username",username);
-            queryIntnet.putExtra("usernumber",usernumber);
-            queryIntnet.putExtra("address",address);
-            queryIntnet.putExtra("locknumber",locknumber);
-            queryIntnet.putExtra("photopath",photopath);
+        queryIntnet.putExtra("username", username);
+        queryIntnet.putExtra("usernumber", usernumber);
+        queryIntnet.putExtra("address", address);
+        queryIntnet.putExtra("locknumber", locknumber);
+        queryIntnet.putExtra("photopath", photopath);
 
 
-            //传递路径
-            queryIntnet.putExtra("longitude",longitude);
-            queryIntnet.putExtra("latitude",latitude);
+        //传递路径
+        queryIntnet.putExtra("longitude", longitude);
+        queryIntnet.putExtra("latitude", latitude);
 
-            startActivity(queryIntnet);
+        startActivity(queryIntnet);
 
 
     }
+
     //拍照
     private void takePhoto() throws IOException {
         //向camera发出捕获照片的意图
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //确保系统有Camera 来接收这个意图
-        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
                 //创建文件夹
@@ -385,19 +388,20 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 e.printStackTrace();
             }
             //继续只有当 photoFile 文件被成功创建
-            if (photoFile != null){
+            if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));//传递路径
-                startActivityForResult(takePictureIntent,REQUEST_TAKE_PHOTO);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
 
     //创建图片目录
     String mCurrentPhotoPath;
+
     private File creatImageFile() throws IOException {
         //以日期时间戳做位新照片的文件名
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_" ;
+        String imageFileName = "JPEG_" + timeStamp + "_";
 
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(

@@ -28,7 +28,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
-    compile project(':model')
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.lzy.net:okhttputils:+'
@@ -37,4 +36,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/butterknife-7.0.1.jar')
+    compile project(':model')
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--radius设置四个角的半径
+       corners圆角
+       solid填充
+       padding设置背景内容中上下左右四个方向的间隔
+       gradient：渐变-->
+    <size android:height="20dp"></size>
+    <solid android:color="#6D8293"></solid>
+    <corners android:radius="24dp"></corners>
+    <padding android:left="20dp">
+    </padding>
+
+
+
+
+
+</shape>

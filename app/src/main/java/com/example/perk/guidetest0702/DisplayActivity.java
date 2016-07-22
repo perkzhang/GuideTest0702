@@ -30,6 +30,7 @@ public class DisplayActivity extends AppCompatActivity {
     private ImageView mPotoDisPlay;
     private ImageView mImageBack;
 
+
     private ListView mDisplay;
     private SwipeRefreshLayout mSwipLayout;
 

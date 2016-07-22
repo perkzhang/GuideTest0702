@@ -48,11 +48,13 @@
         </activity>
         <activity
             android:name=".ActivitySon"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan" />
+        <!-- adjustPan：平移模式，可以让界面不被弹出的键盘挤上去，同时保持当前输入框在当前。-->
+
         <activity
             android:name=".ActivityNFC"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <service
             android:name="com.baidu.location.f"
