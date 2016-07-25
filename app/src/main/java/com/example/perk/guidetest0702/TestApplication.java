@@ -9,6 +9,8 @@ import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 /**
  * Created by perk on 2016/7/2.
  */
+
+//Application类中不能有“使产生界面”的方法
 public class TestApplication extends Application {
 
     @Override
@@ -20,7 +22,6 @@ public class TestApplication extends Application {
 
 
         initOkHttp();
-
     }
 
     private void initOkHttp() {
@@ -36,4 +37,5 @@ public class TestApplication extends Application {
 //                .addCommonParams(params)
                 .setCookieStore(new PersistentCookieStore());
     }
+
 }

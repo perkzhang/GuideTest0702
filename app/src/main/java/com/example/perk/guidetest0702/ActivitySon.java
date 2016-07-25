@@ -1,19 +1,25 @@
 package com.example.perk.guidetest0702;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,7 +49,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
     private EditText mName;
     private EditText mNumber;
-    private EditText mAddress;
+    private TextView mAddress;
     private EditText mLockNumber;
 
     private Button mRecord;
@@ -156,7 +162,8 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         mLocationClient.registerLocationListener(myListener);//注册监听
 
         super.onCreate(savedInstanceState);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//FLAG_KEEP_SCREEN_ON保持屏幕常亮
+        checkOpenGPS();
         setContentView(R.layout.activity_activity_son);
         initViews();
         initLocation();
@@ -186,7 +193,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
     private void initViews() {
         mName = (EditText) findViewById(R.id.edit_name);
         mNumber = (EditText) findViewById(R.id.edit_userno);
-        mAddress = (EditText) findViewById(R.id.edit_add);
+        mAddress = (TextView) findViewById(R.id.edit_add);
         mLockNumber = (EditText) findViewById(R.id.edit_lockno);
 
         mDisplay = (TextView) findViewById(R.id.tv_display);
@@ -235,7 +242,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 Toast.makeText(ActivitySon.this, "记录成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.but_located:
-                mLocationClient.start();
+                mLocationClient.start();//打开百度定位客户端
                 break;
             case R.id.image_takephoto:
                 try {
@@ -413,4 +420,26 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
         return image;
     }
+
+    //检查GPS是否开启，进入该界面打开GPS
+    private void checkOpenGPS(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return;//在返回类型为void的方法中用于结束该方法；
+        }
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("提示");
+        dialog.setMessage("请前往打开GPS");
+        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);//调用系统GPS开关  /*ACTION_LOCALE_SETTINGS：调用系统语言设置接口*/
+                startActivity(intent);
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 }

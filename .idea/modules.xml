@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GuideTest0702.iml" filepath="$PROJECT_DIR$/GuideTest0702.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/marquee_test/marquee_test.iml" filepath="$PROJECT_DIR$/marquee_test/marquee_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/nfcdemo/nfcdemo.iml" filepath="$PROJECT_DIR$/nfcdemo/nfcdemo.iml" />
     </modules>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.perk.guidetest0702">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,6 +28,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 启用NFC权限 -->
     <uses-permission android:name="android.permission.NFC" />
+
+    <uses-permission android:name="android.permission.GPS" />
+
+
 
     <application
         android:name=".TestApplication"

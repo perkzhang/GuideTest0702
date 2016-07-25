@@ -85,22 +85,23 @@
             android:id="@+id/edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请输入用户名称"
-            android:background="@drawable/edt_son"
-            android:singleLine="true"
-            android:layout_centerVertical="true"
             android:layout_alignTop="@+id/txt_name"
-            android:layout_toRightOf="@+id/txt_name"
-            android:layout_toEndOf="@+id/txt_name"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="57dp"
-            android:layout_marginStart="57dp" />
+            android:layout_marginStart="57dp"
+            android:layout_toEndOf="@+id/txt_name"
+            android:layout_toRightOf="@+id/txt_name"
+            android:background="@drawable/edt_son"
+            android:hint="请输入用户名称"
+            android:singleLine="true" />
 
     </RelativeLayout>
+
     <TextView
         android:id="@+id/text_line1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#f3f3f3"/>
+        android:background="#f3f3f3" />
 
 
     <RelativeLayout
@@ -166,16 +167,23 @@
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             android:id="@+id/edit_add"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_toEndOf="@+id/text_addinfo"
             android:layout_toRightOf="@+id/text_addinfo"
-            android:hint="请输入地址"
+            android:ems="5"
 
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请输入地址"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:singleLine="true" />
+        <!--android:ellipsize = "marquee"  EditText不支持marquee跑马灯效果-->
 
         <ImageView
             android:id="@+id/imageView"
