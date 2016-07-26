@@ -28,10 +28,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 启用NFC权限 -->
     <uses-permission android:name="android.permission.NFC" />
-
     <uses-permission android:name="android.permission.GPS" />
-
-
 
     <application
         android:name=".TestApplication"
@@ -54,7 +51,7 @@
         <activity
             android:name=".ActivitySon"
             android:windowSoftInputMode="adjustPan" />
-        <!-- adjustPan：平移模式，可以让界面不被弹出的键盘挤上去，同时保持当前输入框在当前。-->
+        <!-- adjustPan：平移模式，可以让界面不被弹出的键盘挤上去，同时保持当前输入框在当前。 -->
 
         <activity
             android:name=".ActivityNFC"
@@ -67,7 +64,13 @@
             android:process=":remote" />
 
         <activity android:name=".DisplayActivity" />
-        <activity android:name=".mapview.MapViewActivity"></activity>
+        <activity android:name=".mapview.MapViewActivity" />
+        <activity android:name=".ShowPictureActivity" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".HActivity"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
     <!--默认背景图-->
     <item android:drawable="@drawable/ic_action_camera_normal" android:state_window_focused="false" ></item>
     <!--触摸模式下单击时背景图片-->
-    <item android:drawable="@drawable/ic_action_camera_pressed" android:state_focused="true" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/ic_action_camera_pressed"  android:state_pressed="true"></item>
 
 
 </selector>

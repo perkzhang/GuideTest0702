@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GuideTest0702</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>

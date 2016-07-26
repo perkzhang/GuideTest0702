@@ -1,5 +1,6 @@
 package com.example.perk.guidetest0702;
 
+import android.app.usage.NetworkStatsManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,12 +12,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -56,6 +59,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
     private Button mRead;
     private Button mWriteNFC;
     private Button mLocation;
+    private Button mHelp;
 
     private TextView mDisplay;
     private TextView mNfcId;
@@ -163,6 +167,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//FLAG_KEEP_SCREEN_ON保持屏幕常亮
+        checkWifi();
         checkOpenGPS();
         setContentView(R.layout.activity_activity_son);
         initViews();
@@ -207,7 +212,10 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
         mLocation = (Button) findViewById(R.id.but_located);
         mLocation.setOnClickListener(this);
 
-        mTakePhoto = (ImageView) findViewById(R.id.image_takephoto);
+        mHelp = (Button) findViewById(R.id.btn_help);
+        mHelp.setOnClickListener(this);
+
+        mTakePhoto = (ImageView) findViewById(R.id.image_takePhoto);
         mTakePhoto.setOnClickListener(this);
         mImageBack = (ImageView) findViewById(R.id.image_back);
         mImageBack.setOnClickListener(this);
@@ -244,9 +252,14 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
             case R.id.but_located:
                 mLocationClient.start();//打开百度定位客户端
                 break;
-            case R.id.image_takephoto:
+            case R.id.image_takePhoto:
                 try {
-                    takePhoto();
+                    if (TextUtils.isEmpty(mCurrentPhotoPath)){
+                        takePhoto();
+                    }else {
+                        startActivity(new Intent(ActivitySon.this,ShowPictureActivity.class).putExtra("imagePath",mCurrentPhotoPath).putExtra("SHOW_PICTURE_LOCAL",true));
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -271,6 +284,9 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                     e.printStackTrace();
                 }*/
                 startActivity(new Intent(ActivitySon.this, DisplayActivity.class));
+                break;
+            case R.id.btn_help:
+                startActivity(new Intent(ActivitySon.this, HActivity.class));
                 break;
         }
     }
@@ -440,6 +456,33 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
             }
         });
         dialog.show();
+    }
+
+    private void checkWifi(){
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager.isWifiEnabled()){
+            Log.d("zgl", String.valueOf(wifiManager.isWifiEnabled()));
+            return;
+        }
+
+        AlertDialog.Builder wifidialob = new AlertDialog.Builder(this);
+        wifidialob.setTitle("提示");
+        wifidialob.setMessage("请前往打开WIFI");
+        wifidialob.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent wifiIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(wifiIntent);
+                dialogInterface.dismiss();
+
+            }
+        });
+        wifidialob.show();
+    }
+
+    private void checkGPRS(){
+        NetworkStatsManager networkStatsManager = (NetworkStatsManager) getSystemService(Context.NETWORK_STATS_SERVICE);
+
     }
 
 }
