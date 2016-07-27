@@ -1,11 +1,11 @@
 package com.example.perk.guidetest0702;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +24,10 @@ import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
+    public Context mContext;
+
     private ProgressDialog dialog;
     private Gson gson;
 
@@ -149,5 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }

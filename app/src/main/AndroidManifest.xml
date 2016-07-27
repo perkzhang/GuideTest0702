@@ -70,7 +70,7 @@
             android:name=".BaseActivity"
             android:label="@string/title_activity_base"
             android:theme="@style/AppTheme" />
-        <activity android:name=".HActivity"></activity>
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

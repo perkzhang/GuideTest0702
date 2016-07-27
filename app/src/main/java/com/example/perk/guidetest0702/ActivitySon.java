@@ -18,9 +18,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -43,8 +43,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ActivitySon extends AppCompatActivity implements View.OnClickListener {
+public class ActivitySon extends BaseActivity implements View.OnClickListener {
 
+
+    Context mContext = this;
 
     private static final int REQUEST_WRITE_NFC = 1;
     private static final int REQUEST_TAKE_PHOTO = 2;
@@ -167,6 +169,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//FLAG_KEEP_SCREEN_ON保持屏幕常亮
+        //检测类的东西可以写在BaseActivity中；
         checkWifi();
         checkOpenGPS();
         setContentView(R.layout.activity_activity_son);
@@ -286,7 +289,7 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(ActivitySon.this, DisplayActivity.class));
                 break;
             case R.id.btn_help:
-                startActivity(new Intent(ActivitySon.this, HActivity.class));
+                startActivity(new Intent(ActivitySon.this, HelpActivity.class));
                 break;
         }
     }
@@ -474,7 +477,6 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
                 Intent wifiIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                 startActivity(wifiIntent);
                 dialogInterface.dismiss();
-
             }
         });
         wifidialob.show();
@@ -485,4 +487,18 @@ public class ActivitySon extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    long backTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (System.currentTimeMillis() - backTime > 2000){
+            Toast.makeText(mContext,"再按一次退出",Toast.LENGTH_SHORT).show();//用Activity.this 弹出一个标准Toast,而getApplication()弹出一个包含完显示内容的Toast
+            backTime = System.currentTimeMillis();
+            return true;
+        }
+        //long c = System.currentTimeMillis() - backTime;
+        //Log.d("zgl1","c = " + c );
+        return super.onKeyDown(keyCode,event);
+    }
+    //onKeyDown（）返回true表示执行自己，返回父类方法执行finish
+    //currentTimeMillis单位毫秒
 }

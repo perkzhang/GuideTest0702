@@ -1,1 +1,2 @@
-include ':app', ':model', ':nfcdemo', ':marquee_test'
+include ':app', ':model', ':nfcdemo', ':marquee_test', ':mylibrary'
+
